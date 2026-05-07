@@ -89,7 +89,7 @@ $lightGray: #dcdcdc;
                 span{
                     cursor: pointer;
                     font-weight: 300;
-                    font-size: 14px;
+                    font-size: 1
                 }
                 
                 .write{
@@ -134,6 +134,41 @@ $lightGray: #dcdcdc;
                 gap: 150px;
 
                 .post{
+                    position: relative;
+
+                    .adminEdit{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    display: flex;
+                    gap: 15px;
+                    background-color: rgba(255,255,255,0.8);
+                    padding: 8px 12px;
+                    border-radius: 5px;
+                    box-shadow: inset 4px 4px 10px rgba(0,0,0,0.15);
+                    z-index: 10;
+
+                    img{
+                    width: 25px;
+                    height: 25px;
+                    cursor: pointer;
+                    transition: transform 0.3s ease;
+                    transition: background-color 0.3s ease;
+
+                    &:hover{
+                        transform: scale(1.1);
+                        background-color: #e0e0e0;
+                    }
+
+                    
+                    }
+                    
+
+                    }
+                    background-color: #eeeeee;
+                    border-radius: 15px;
+                    padding: 20px;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
                     display: flex;
                     gap: 100px;
 

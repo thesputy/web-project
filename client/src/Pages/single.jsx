@@ -28,16 +28,16 @@ function Single() {
     fetchData()
   }, [postId])
 
-  const handleDelete = async () => {
+ const handleDelete = async () => {
     try {
-     await axios.delete(`http://localhost:8800/posts/${postId}`, {
-      data: { userId: currentUser.id }  // ← így kell delete-nél body-t küldeni
-    })
-      navigate("/")  // ← törlés UTÁN navigáljon vissza
-    } catch (err) {
-      console.log(err)
+        await axios.delete(`http://localhost:8800/posts/${postId}`, {
+            data: { uid: currentUser.id, isAdmin: currentUser.isAdmin }
+        })
+        navigate("/")
+    } catch(err) {
+        console.log(err)
     }
-  }
+}
 
   return (
     <div className='single'>
@@ -49,17 +49,18 @@ function Single() {
             <span>{post?.username}</span>
             <p>Posztolva {moment(post?.date).fromNow()}</p>
           </div>
-          {currentUser?.id === post?.userId && (
-            <div className="edit">
-              <Link to={`/write?edit=2`}>
-                <img src={Edit} alt="Szerkesztés" />
-              </Link>
-              <img onClick={handleDelete} src={Delete} alt="Törlés" />
-            </div>
+          {(currentUser?.id === post?.userId || currentUser?.isAdmin) && (
+    <div className="edit">
+        <Link to="/write" state={post}>
+            <img src={Edit} alt="Szerkesztés" />
+        </Link>
+        <img onClick={handleDelete} src={Delete} alt="Törlés" />
+    </div>
+
           )}
         </div>
         <h1>{post?.title}</h1>
-        <p>{post?.desc}</p>  {/* ← p tagbe kell! */}
+        <div dangerouslySetInnerHTML={{ __html: post?.desc }} />
       </div>
       <Menu />
     </div>

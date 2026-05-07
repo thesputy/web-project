@@ -1,28 +1,24 @@
+import axios from 'axios'
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
-const menu = () => {
+const Menu = () => {
 
- const posts = [
-    {
-      id: 1,
-      title: "Lorem ipsum dolor sit amet",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, voluptate.",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-    },
-    {
-      id: 2,
-      title: "Lorem ipsum dolor sit amet",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, voluptate.",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-    },
-    {
-      id: 3,
-      title: "Lorem ipsum dolor sit amet",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, voluptate.",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+ const [posts, setPosts] = useState([])
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8800/posts")
+      setPosts(res.data)
+    }catch(err){
+      console.log(err)
     }
-
-  ]
+  }
+  fetchData()
+}, [])
+    
 
   return (
     <div className='menu'>
@@ -38,4 +34,4 @@ const menu = () => {
   )
 }
 
-export default menu
+export default Menu
