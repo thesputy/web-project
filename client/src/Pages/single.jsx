@@ -1,33 +1,69 @@
 import React from 'react'
 import Edit from '../img/edit.png'
 import Delete from '../img/delete.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Menu from '../components/menu'
+import axios from 'axios'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import moment from 'moment'
+import { useContext } from 'react'
+import { AuthContext } from '../context/authContext.jsx'
 
-function single() {
+function Single() {
+  const [post, setPosts] = useState({})
+  const postId = location.pathname.split("/")[2]
+  const { currentUser } = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8800/posts/${postId}`)
+        setPosts(res.data)
+      } catch(err) {
+        console.log(err)
+      }
+    }
+    fetchData()
+  }, [postId])
+
+  const handleDelete = async () => {
+    try {
+     await axios.delete(`http://localhost:8800/posts/${postId}`, {
+      data: { userId: currentUser.id }  // ← így kell delete-nél body-t küldeni
+    })
+      navigate("/")  // ← törlés UTÁN navigáljon vissza
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className='single'>
       <div className="content">
-        <img src="https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" />
+        <img src={post?.img} alt="" />
         <div className="user">
-          <img src="https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" />
+          <img src={post?.userImg} alt="" />
           <div className="info">
-            <span>John</span>
-            <p>Posted 2 days ago</p>
+            <span>{post?.username}</span>
+            <p>Posztolva {moment(post?.date).fromNow()}</p>
           </div>
-          <div className="edit">
-            <Link to={`/write?edit=2`}>
-              <img src={Edit} alt="Szerkesztés" />
-            </Link>
-            <img src={Delete} alt="Törlés" />
-          </div>
+          {currentUser?.id === post?.userId && (
+            <div className="edit">
+              <Link to={`/write?edit=2`}>
+                <img src={Edit} alt="Szerkesztés" />
+              </Link>
+              <img onClick={handleDelete} src={Delete} alt="Törlés" />
+            </div>
+          )}
         </div>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, voluptate.</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, voluptate.</p>
+        <h1>{post?.title}</h1>
+        <p>{post?.desc}</p>  {/* ← p tagbe kell! */}
       </div>
       <Menu />
     </div>
   )
 }
 
-export default single
+export default Single

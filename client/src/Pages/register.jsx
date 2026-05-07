@@ -1,16 +1,47 @@
 import React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const Register = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+    password: "",
+  })
+
+const handleChange = e => {
+  setInputs(prev => ({
+    ...prev,
+    [e.target.name]: e.target.value
+  }))
+}
+
+const [err, setErr] = useState(null)
+
+const navigate = useNavigate()
+
+const handleSubmit = async e => {
+  e.preventDefault()
+  try{
+    const res =await axios.post("http://localhost:8800/auth/register", inputs)
+    navigate("/login")
+console.log(res)
+  }catch(err){
+    setErr(err.response.data)
+  }
+}
+
   return (
     <div className='auth'>
     <h1>Regisztráció</h1>
     <form>
-      <input required type="text" placeholder='Felhasználónév' />
-      <input required type="email" placeholder='Email' />
-      <input required type="password" placeholder='Jelszó' />
-      <button>Regisztráció</button>
-      <p>ez egy hiba</p>
+      <input required type="text" placeholder='Felhasználónév' name='username' onChange={handleChange}/>
+      <input required type="email" placeholder='Email' name='email' onChange={handleChange}/>
+      <input required type="password" placeholder='Jelszó' name='password' onChange={handleChange}/>
+      <button onClick={handleSubmit}>Regisztráció</button>
+      {err && <p>{err}</p>}
       <span>Rendelkezel fiókkal? <Link to="/login">Jelentkezz be!</Link>
       </span>
     </form>
