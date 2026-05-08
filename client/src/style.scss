@@ -578,4 +578,122 @@ $lightGray: #dcdcdc;
             
         }
     }
+    
+}
+
+@media (max-width: 768px) {
+    .app {
+        .container {
+            width: 100% !important;
+            padding: 0 15px;
+        }
+
+        // Navbar
+        .navbar {
+            .container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+
+                .write {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+
+        // Home
+        .home {
+            .posts {
+                gap: 50px;
+
+                .post {
+                    flex-direction: column !important;
+                    gap: 20px;
+
+                    .img {
+                        width: 100%;
+                    }
+
+                    .content {
+                        h1 {
+                            font-size: 24px;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Single
+        .single {
+            flex-direction: column;
+
+            .content {
+                h1 {
+                    font-size: 24px;
+                }
+            }
+
+            .menu {
+                width: 100%;
+            }
+        }
+
+        // Write
+        .add {
+            flex-direction: column;
+        }
+
+        // Auth
+        .auth {
+            form {
+                width: 80%;
+                padding: 30px;
+            }
+        }
+    }
+}
+
+// 360px-es nézet
+@media (max-width: 360px) {
+    .app {
+        .container {
+            width: 100% !important;
+            padding: 0 10px;
+        }
+
+        .navbar {
+            .links {
+                h6 {
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .home {
+            .posts {
+                .post {
+                    .content {
+                        h1 {
+                            font-size: 20px;
+                        }
+                        button {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .auth {
+            form {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    }
 }
