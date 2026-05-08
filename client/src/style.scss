@@ -241,6 +241,139 @@ $lightGray: #dcdcdc;
             display: flex;
             gap: 50px;
 
+            .comments{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h2{
+        font-size: 20px;
+        color: #333;
+    }
+
+    .addComment{
+        display: flex;
+        gap: 10px;
+
+        input{
+            flex: 1;
+            padding: 10px;
+            border: 1px solid $lightGray;
+            border-radius: 5px;
+        }
+
+        button{
+            padding: 10px 20px;
+            border: none;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+
+            &:hover{
+                background-color: #333;
+            }
+        }
+    }
+
+    .comment{
+        padding: 15px;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .editedInfo{
+    font-size: 11px;
+        color: gray;
+        font-style: italic;
+        display: block;
+        text-align: center; 
+        margin-top: auto;
+}
+
+        .commentButtons{
+    display: flex;
+    gap: 10px;
+    align-self: flex-end;
+
+    img{
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+    }
+}
+
+.editComment{
+    display: flex;
+    gap: 10px;
+
+    .editedInfo{
+    font-size: 11px;
+        color: gray;
+        font-style: italic;
+        display: block;
+        text-align: center; 
+        margin-top: auto;
+}
+
+    input{
+        flex: 1;
+        padding: 5px;
+        border: 1px solid $lightGray;
+        border-radius: 5px;
+    }
+
+    button{
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+
+        &:first-child{
+            background-color: black;
+            color: white;
+        }
+
+        &:last-child{
+            background-color: $lightGray;
+            color: black;
+        }
+    }
+}
+
+        .commentInfo{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            .commentUser{
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            .commentDate{
+                font-size: 12px;
+                color: gray;
+            }
+        }
+
+        p{
+            margin: 0;
+            font-size: 14px;
+        }
+
+        img{
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+    }
+            }
+
             .content{
                 flex: 5;
                 display: flex;
