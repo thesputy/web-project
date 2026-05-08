@@ -2,8 +2,9 @@ import express from "express"
 import postRoutes from "./routes/posts.js"
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
-import cors from "cors"
 import commentRoutes from "./routes/comments.js"
+import cors from "cors"
+import cookieParser from "cookie-parser"
 
 const app = express()
 
@@ -12,7 +13,8 @@ app.use(cors({
   credentials: true
 }))
 
-app.use(express.json())  // ← ez legyen LEGELÖL!
+app.use(express.json())
+app.use(cookieParser())
 
 app.use("/posts", postRoutes)
 app.use("/auth", authRoutes)

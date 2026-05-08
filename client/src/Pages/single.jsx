@@ -44,44 +44,46 @@ function Single() {
     fetchComments()
   }, [postId])
 
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`http://localhost:8800/posts/${postId}`, {
-        data: { uid: currentUser.id, isAdmin: currentUser.isAdmin }
-      })
-      navigate("/")
-    } catch (err) {
-      console.log(err)
-    }
+ const handleDelete = async () => {
+  try {
+    await axios.delete(`http://localhost:8800/posts/${postId}`, {
+      withCredentials: true,
+      data: { uid: currentUser.id, isAdmin: currentUser.isAdmin }
+    })
+    navigate("/")
+  } catch (err) {
+    console.log(err)
   }
+}
 
-  const handleAddComment = async () => {
-    try {
-      await axios.post("http://localhost:8800/comments", {
-        desc: commentDesc,
-        date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-        uid: currentUser.id,
-        postId: postId
-      })
-      setCommentDesc("")
-      const res = await axios.get(`http://localhost:8800/comments/post/${postId}`)
-      setComments(res.data)
-    } catch(err) {
-      console.log(err)
-    }
+const handleAddComment = async () => {
+  try {
+    await axios.post("http://localhost:8800/comments", {
+      desc: commentDesc,
+      date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+      uid: currentUser.id,
+      postId: postId
+    }, { withCredentials: true })
+    setCommentDesc("")
+    const res = await axios.get(`http://localhost:8800/comments/post/${postId}`)
+    setComments(res.data)
+  } catch(err) {
+    console.log(err)
   }
+}
 
-  const handleDeleteComment = async (id) => {
-    try {
-      await axios.delete(`http://localhost:8800/comments/${id}`, {
-        data: { uid: currentUser.id, isAdmin: currentUser.isAdmin }
-      })
-      const res = await axios.get(`http://localhost:8800/comments/post/${postId}`)
-      setComments(res.data)
-    } catch(err) {
-      console.log(err)
-    }
+const handleDeleteComment = async (id) => {
+  try {
+    await axios.delete(`http://localhost:8800/comments/${id}`, {
+      withCredentials: true,
+      data: { uid: currentUser.id, isAdmin: currentUser.isAdmin }
+    })
+    const res = await axios.get(`http://localhost:8800/comments/post/${postId}`)
+    setComments(res.data)
+  } catch(err) {
+    console.log(err)
   }
+}
 
 const handleEditComment = async (id) => {
   try {
@@ -90,7 +92,7 @@ const handleEditComment = async (id) => {
       uid: currentUser.id,
       isAdmin: currentUser.isAdmin,
       edited: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
-    })
+    }, { withCredentials: true })
     setEditComment(null)
     setEditDesc("")
     const res = await axios.get(`http://localhost:8800/comments/post/${postId}`)

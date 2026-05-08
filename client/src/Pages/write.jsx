@@ -17,26 +17,26 @@ const Write = () => {
   const { currentUser } = useContext(AuthContext)
 
   const handleClick = async e => {
-    e.preventDefault()
-    try {
-      state 
-        ? await axios.put(`http://localhost:8800/posts/${state.id}`, {
-            title,
-            desc: value,
-            uid: currentUser.id
-          })
-        : await axios.post(`http://localhost:8800/posts/`, {
-            title,
-            desc: value,
-            img: file ? URL.createObjectURL(file) : "",
-            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-            uid: currentUser.id
-          })
-      navigate("/")
-    } catch(err) {
-      console.log(err)
-    }
+  e.preventDefault()
+  try {
+    state 
+      ? await axios.put(`http://localhost:8800/posts/${state.id}`, {
+          title,
+          desc: value,
+          uid: currentUser.id
+        }, { withCredentials: true })
+      : await axios.post(`http://localhost:8800/posts/`, {
+          title,
+          desc: value,
+          img: file ? URL.createObjectURL(file) : "",
+          date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+          uid: currentUser.id
+        }, { withCredentials: true })
+    navigate("/")
+  } catch(err) {
+    console.log(err)
   }
+}
 
   return (
     <div className="add">

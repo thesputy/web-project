@@ -29,6 +29,7 @@ useEffect(() => {
 const handleDelete = async (id) => {
   try {
     await axios.delete(`http://localhost:8800/posts/${id}`, {
+      withCredentials: true,
       data: { uid: currentUser.id, isAdmin: currentUser.isAdmin }
     })
     window.location.reload()
