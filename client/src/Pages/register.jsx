@@ -24,12 +24,13 @@ const navigate = useNavigate()
 
 const handleSubmit = async e => {
   e.preventDefault()
-  try{
-    const res =await axios.post("http://localhost:8800/auth/register", inputs)
+  try {
+    await axios.post("http://localhost:8800/auth/register", inputs)
     navigate("/login")
-console.log(res)
-  }catch(err){
-    setErr(err.response.data)
+  } catch(err) {
+    setErr(err.response?.data?.errors 
+      ? err.response.data.errors[0].msg 
+      : err.response?.data)
   }
 }
 
