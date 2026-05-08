@@ -193,6 +193,10 @@ npm test
 ### Admin funkciók
 - Összes poszt és komment moderálása
 - Bejegyzések törlése és szerkesztése
+- _____________________________________________________
+- |   Admin felhasználónév: admin                      |
+- |   Admin jelszó: admin                              |
+- -----------------------------------------------------
 
 ### Biztonsági funkciók
 - JWT token alapú autentikáció
