@@ -18,9 +18,10 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const res = await axios.get("http://localhost:8800/posts")
-      setPosts(res.data)
+      setPosts(Array.isArray(res.data) ? res.data : [])
     }catch(err){
       console.log(err)
+      setPosts([])
     }
   }
   fetchData()

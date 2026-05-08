@@ -5,7 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "testMatch": ["**/tests/**/*.test.js"]
   },
   "keywords": [],
   "author": "",
@@ -19,5 +23,9 @@
     "jsonwebtoken": "^9.0.3",
     "mysql": "^2.18.1",
     "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "jest": "^30.4.1",
+    "supertest": "^7.2.2"
   }
 }
